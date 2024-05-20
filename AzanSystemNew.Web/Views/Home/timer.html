@@ -1,0 +1,109 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto:100,300");
+
+      .timerContainer {
+        position: relative;
+        top: 30px;
+        width: 300px;
+        margin: 0 auto;
+      }
+
+      .timerContainer .controls {
+        position: absolute;
+        left: 75px;
+        top: 105px;
+        text-align: center;
+        width: 100%;
+        left: 0;
+        height: 100%;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .timerContainer .controls .title {
+        display: flex;
+        justify-content: center;
+        gap: 5.6em;
+      }
+      .timerContainer .controls .title span {
+        color: #044c4a;
+        font-size: 1.4em;
+        font-weight: bold;
+      }
+      .timerContainer .display-remain-time {
+        font-family: "Roboto";
+        font-weight: 100;
+        font-size: 4em;
+        color: #089a8f;
+        font-weight: bold;
+      }
+      .timerContainer .e-c-base {
+        fill: none;
+        stroke: #e2e2e2;
+        stroke-width: 6px;
+      }
+
+      .e-c-progress {
+        fill: none;
+        stroke: #13c8c3;
+        stroke-width: 8px;
+        transition: stroke-dashoffset 0.7s;
+        stroke-linecap: round;
+      }
+
+      body {
+        background-color: #f7f7f7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timerContainer"></div>
+    <script>
+      //circle start
+      let progressBar = document.querySelector(".e-c-progress");
+      let length = Math.PI * 2 * 100;
+
+      progressBar.style.strokeDasharray = length;
+
+      function update(value, timePercent) {
+        progressBar.style.strokeDashoffset =
+          -length - (length * value) / timePercent;
+      }
+
+      //circle ends
+      const displayOutput = document.querySelector(".display-remain-time");
+
+      function timer(wholeTime) {
+        update(wholeTime, wholeTime);
+        displayTimeLeft(wholeTime);
+
+        let timeLeft = wholeTime;
+        setInterval(function () {
+          timeLeft--;
+          if (timeLeft < 0) {
+            return;
+          }
+          update(timeLeft, wholeTime);
+          displayTimeLeft(timeLeft);
+        }, 1000);
+      }
+      timer(0.2 * 60);
+      function displayTimeLeft(timeLeft) {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        let displayString = `${minutes < 10 ? "0" : ""}${minutes} : ${
+          seconds < 10 ? "0" : ""
+        }${seconds}`;
+        displayOutput.textContent = displayString;
+      }
+    </script>
+  </body>
+</html>

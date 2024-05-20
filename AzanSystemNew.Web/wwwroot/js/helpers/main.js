@@ -1,0 +1,144 @@
+import { getPrayerswithSplitedFormat } from "./getPrayersTimes.js";
+import { compareTimeNowWithPrayers } from "./general.js";
+async function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+setInterval(() => executionFunctions(), 1000);
+
+let delayedExecutionRemaingTimeForPrayer = false;
+async function updatedComparePrayersTime(prayersTimes) {
+  let compareWith = (timeDifference) =>
+    timeDifference <= 15 && timeDifference >= 0;
+
+  let compareTimeWithPrayer = await compareTimeNowWithPrayers(
+    compareWith,
+    prayersTimes
+  );
+
+  if (compareTimeWithPrayer.nextPrayer != null) {
+    if (delayedExecutionRemaingTimeForPrayer) {
+      await sleep(45 * 60 * 1000);
+      delayedExecutionRemaingTimeForPrayer = false;
+    } else {
+      remainingTime(compareTimeWithPrayer);
+      delayedExecutionRemaingTimeForPrayer = true;
+    }
+  }
+}
+let delayedExecutionRemaingTimeForCaller = false;
+async function updatedComparePrayersCallerTime(prayersTimes) {
+  let compareWith = (timeDifference) =>
+    timeDifference >= -5 && timeDifference <= 0;
+
+  let compareTimeWithPrayer = await compareTimeNowWithPrayers(
+    compareWith,
+    prayersTimes
+  );
+
+  if (compareTimeWithPrayer.nextPrayer != null) {
+    if (delayedExecutionRemaingTimeForCaller) {
+      await sleep(45 * 60 * 1000);
+      delayedExecutionRemaingTimeForCaller = false;
+    } else {
+      Caller(compareTimeWithPrayer);
+      delayedExecutionRemaingTimeForCaller = true;
+    }
+  }
+}
+let delayedExecutionAzkarAfterCaller = false;
+async function updatedCompareAzkarCallerTime(prayersTimes) {
+  let compareWith = (timeDifference) =>
+    timeDifference >= -10 && timeDifference <= -5;
+
+  let compareTimeWithPrayer = await compareTimeNowWithPrayers(
+    compareWith,
+    prayersTimes
+  );
+
+  if (compareTimeWithPrayer.nextPrayer != null) {
+    if (delayedExecutionAzkarAfterCaller) {
+      await sleep(45 * 60 * 1000);
+      delayedExecutionAzkarAfterCaller = false;
+    } else {
+      Azkar();
+      delayedExecutionAzkarAfterCaller = true;
+    }
+  }
+}
+let delayedExecutionRemaingTimeForPerformingPrayer = false;
+
+async function updatedComparePerformingPrayersTime(prayersTimes) {
+  let timeCompared = 0;
+  let compareWith = (timeDifference) => {
+    timeCompared = 20 - timeDifference * -1;
+    return timeDifference >= -20 && timeDifference <= -10;
+  };
+
+  let compareTimeWithPrayer = await compareTimeNowWithPrayers(
+    compareWith,
+    prayersTimes
+  );
+
+  if (compareTimeWithPrayer.nextPrayer != null) {
+    if (delayedExecutionRemaingTimeForPerformingPrayer) {
+      await sleep(45 * 60 * 1000);
+      delayedExecutionRemaingTimeForPerformingPrayer = false;
+    } else {
+      remainingTimeToPray(timeCompared);
+      delayedExecutionRemaingTimeForPerformingPrayer = true;
+    }
+  }
+}
+let delayedExecutionReminderPerformingPrayer = false;
+
+async function updatedCompareReminderPerformingPrayersTime(prayersTimes) {
+  let compareWith = (timeDifference) =>
+    timeDifference >= -22 && timeDifference <= -20;
+
+  let compareTimeWithPrayer = await compareTimeNowWithPrayers(
+    compareWith,
+    prayersTimes
+  );
+
+  if (compareTimeWithPrayer.nextPrayer != null) {
+    if (delayedExecutionReminderPerformingPrayer) {
+      await sleep(45 * 60 * 1000);
+      delayedExecutionReminderPerformingPrayer = false;
+    } else {
+      reminderPerformingPrayer(compareTimeWithPrayer);
+      delayedExecutionReminderPerformingPrayer = true;
+    }
+  }
+}
+let delayedExecutionAzkarAfterPrayer = false;
+
+async function updatedCompareAzkarPerformingPrayersTime(prayersTimes) {
+  let compareWith = (timeDifference) =>
+    timeDifference >= -35 && timeDifference <= -22;
+
+  let compareTimeWithPrayer = await compareTimeNowWithPrayers(
+    compareWith,
+    prayersTimes
+  );
+
+  if (compareTimeWithPrayer.nextPrayer != null) {
+    if (delayedExecutionAzkarAfterPrayer) {
+      await sleep(45 * 60 * 1000);
+      delayedExecutionAzkarAfterPrayer = false;
+    } else {
+      AzkarAfterPrayer();
+      delayedExecutionAzkarAfterPrayer = true;
+    }
+  }
+}
+async function executionFunctions() {
+  let prayersTimes = await getPrayerswithSplitedFormat();
+
+  updatedComparePrayersTime(prayersTimes);
+  updatedComparePrayersCallerTime(prayersTimes);
+  updatedCompareAzkarCallerTime(prayersTimes);
+  updatedComparePerformingPrayersTime(prayersTimes);
+  updatedCompareReminderPerformingPrayersTime(prayersTimes);
+  updatedCompareAzkarPerformingPrayersTime(prayersTimes);
+}
