@@ -1,5 +1,5 @@
 import { handleCities, handleLanguages } from "../helpers/getSelectOptions.js";
-import { saveMainSettingsDataToClient } from "../helpers/mainSettingsData.js";
+import { saveMainSettingsData, saveMainSettingsDataToClient,getMainSettingsData } from "../helpers/mainSettingsData.js";
 import { getRandomOfAzkarCaller } from "../helpers/getAzkar.js";
 getRandomOfAzkarCaller();
 export function CityLanguageScreen() {
@@ -39,10 +39,15 @@ export function CityLanguageScreen() {
       `);
   }
 
-  async function handle() {
-    render();
-    handleCities();
-    handleLanguages();
+    async function handle() {
+        let mainSettings = await getMainSettingsData();
+        if (Object.keys(mainSettings).length) {
+            Prayers();
+        }else {
+            render();
+            handleCities();
+            handleLanguages();
+        }
   }
   handle();
   $(".mainContainer").on("click", "#save", function () {
@@ -50,8 +55,9 @@ export function CityLanguageScreen() {
       cityName = getCustomSelectText("city"),
       languageId = getCustomSelectVal("language");
     if (cityId && languageId) {
-      let obj = { city: cityId, cityAr: cityName, language: languageId };
-      saveMainSettingsDataToClient(obj);
+        let obj = { City: cityId, CityAr: cityName, Lang: languageId };
+        saveMainSettingsData(obj);
+        saveMainSettingsDataToClient(obj);
     }
   });
 }

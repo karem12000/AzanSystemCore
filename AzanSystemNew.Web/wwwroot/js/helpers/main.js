@@ -4,7 +4,6 @@ async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-setInterval(() => executionFunctions(), 1000);
 
 let delayedExecutionRemaingTimeForPrayer = false;
 async function updatedComparePrayersTime(prayersTimes) {
@@ -132,9 +131,7 @@ async function updatedCompareAzkarPerformingPrayersTime(prayersTimes) {
     }
   }
 }
-async function executionFunctions() {
-  let prayersTimes = await getPrayerswithSplitedFormat();
-
+async function executionFunctions(prayersTimes) {
   updatedComparePrayersTime(prayersTimes);
   updatedComparePrayersCallerTime(prayersTimes);
   updatedCompareAzkarCallerTime(prayersTimes);
@@ -142,3 +139,13 @@ async function executionFunctions() {
   updatedCompareReminderPerformingPrayersTime(prayersTimes);
   updatedCompareAzkarPerformingPrayersTime(prayersTimes);
 }
+async function executeOne() {
+    let prayersTimes = await getPrayerswithSplitedFormat();
+    if (prayersTimes != undefined) {
+        setInterval(() => executionFunctions(prayersTimes), 1000);
+    } else {
+        CityLanguageScreen();
+    }
+
+}
+executeOne();

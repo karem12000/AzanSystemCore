@@ -1,6 +1,6 @@
 import { Counter } from "../helpers/counter.js";
 import { handleTitle, updatedTime, playSound } from "../helpers/general.js";
-import { getMainSettingsDataFromClient } from "../helpers/mainSettingsData.js";
+import { getMainSettingsData } from "../helpers/mainSettingsData.js";
 
 export function remainingTime(compareTimeWithPrayer) {
   function render() {
@@ -66,7 +66,7 @@ export function remainingTime(compareTimeWithPrayer) {
   playSound("notification");
   $(".myDate").hijriDate({ showGregDate: true });
   updatedTime("timeContainer", "afContainer");
-  $(".city").text(getMainSettingsDataFromClient().cityAr);
+    $(".city").text(getMainSettingsData().CityAr);
   if (compareTimeWithPrayer != undefined || compareTimeWithPrayer != null) {
     if (compareTimeWithPrayer.nextPrayer != null) {
       $(".prayerName").text(compareTimeWithPrayer.nextPrayer.arName);

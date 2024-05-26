@@ -1,9 +1,12 @@
-import { getMainSettingsDataFromClient } from "./mainSettingsData.js";
+import { getMainSettingsData } from "./mainSettingsData.js";
 import { getDateNow } from "./general.js";
+import { Prayers } from "../Module/Prayers.js";
 
 export async function getPrayersTimes() {
-  let data = await getPrayersTimesForOneDay();
-  return getTimingsWithFormat(data.timings, formatTime);
+    let data = await getPrayersTimesForOneDay();
+    if (data != undefined) {
+        return getTimingsWithFormat(data.timings, formatTime);
+    }
 }
 async function getPrayersTimesFromApi(dateNow, city) {
   let response = await fetch(
@@ -16,40 +19,45 @@ async function getPrayersTimesFromResources(city) {
   return await response.json();
 }
 async function handleGetPrayersTimesFrom() {
-  var city = getMainSettingsDataFromClient().city;
-  let dateNow = getDateNow();
-  let oldPrayers = JSON.parse(localStorage.getItem("Prayers"));
+    let mainSettings = await getMainSettingsData();
+    var city = mainSettings.City;
+    if (city != undefined) {
+        let dateNow = getDateNow();
+        let oldPrayers = JSON.parse(localStorage.getItem("Prayers"));
+        if (
+            oldPrayers == null ||
+            oldPrayers.Date.Year != dateNow.Year ||
+            oldPrayers.City != city
+        ) {
+            let data;
+            try {
+                data = await getPrayersTimesFromApi(dateNow, city);
+            } catch (error) {
+                data = await getPrayersTimesFromResources(city);
+            }
+            let obj = {
+                City: city,
+                Date: dateNow,
+                timings: data.data,
+            };
+            localStorage.setItem("Prayers", JSON.stringify(obj));
 
-  if (
-    oldPrayers == null ||
-    oldPrayers.Date.Year != dateNow.Year ||
-    oldPrayers.City != city
-  ) {
-    let data;
-    try {
-      data = await getPrayersTimesFromApi(dateNow, city);
-    } catch (error) {
-      data = await getPrayersTimesFromResources(city);
+            return obj;
+        } else {
+            return oldPrayers;
+        }
     }
-    let obj = {
-      City: city,
-      Date: dateNow,
-      timings: data.data,
-    };
-    localStorage.setItem("Prayers", JSON.stringify(obj));
-
-    return obj;
-  } else {
-    return oldPrayers;
-  }
 }
 async function getPrayersTimesForOneDay() {
-  let data = await handleGetPrayersTimesFrom();
-  let dateNow = getDateNow();
-  return {
-    ...data,
-    timings: data.timings[dateNow.Month][dateNow.Day-1].timings,
-  };
+    let data = await handleGetPrayersTimesFrom();
+    if (data != undefined) {
+
+        let dateNow = getDateNow();
+        return {
+            ...data,
+            timings: data.timings[dateNow.Month][dateNow.Day - 1].timings,
+        };
+    }
 }
 function getTimingsWithFormat(timings, format) {
   return {
@@ -95,8 +103,10 @@ function formatTime(time) {
   }
 }
 export async function getPrayerswithSplitedFormat() {
-  let data = await getPrayersTimesForOneDay();
-  return getTimingsWithFormat(data.timings, splitedFormat);
+    let data = await getPrayersTimesForOneDay();
+    if (data != undefined) {
+        return getTimingsWithFormat(data.timings, splitedFormat);
+    }
 }
 
 function splitedFormat(time) {

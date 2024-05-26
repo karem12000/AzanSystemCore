@@ -1,25 +1,40 @@
 export async function getMainSettingsData() {
-  let response = await fetch("../../resources/index.json");
-  return await response.json();
+    let response = getMainSettingsDataFromClient();
+    if (response != null) { return response; } else {
+        let response = await fetch("/Api/Values/GetSettings");
+        let jsonRes = await response.json();
+        if (Object.keys(jsonRes).length) {
+            saveMainSettingsDataToClient(jsonRes);
+        }
+        return jsonRes;
+    }
 }
 export async function saveMainSettingsData(data) {
-  try {
-    let response = await fetch("../../resources/languages.json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+        let response = await fetch("/Api/Values/SaveSettings", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(data),
+        });
 
-    const result = await response.json();
-    Swal.fire({
-      icon: "success",
-      title: "تم الحفظ",
-      text: result.join(""),
-      timer: 1500,
-    });
+        const result = await response;
+        if (result.status == 200) {
+            Swal.fire({
+                icon: "success",
+                title: "تم الحفظ",
+                timer: 1500,
+            });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "خطأ",
+                timer: 1500,
+            });
+        }
   } catch (error) {
+      console.log(error)
     Swal.fire({
       icon: "error",
       title: "خطأ",
@@ -29,17 +44,13 @@ export async function saveMainSettingsData(data) {
   }
 }
 export function getMainSettingsDataFromClient() {
-  let data = localStorage.getItem("mainSettings");
-  return data == null
-    ? { city: "Riyadh", cityAr: "الرياض", language: "ar" }
-    : JSON.parse(data);
+    let data = localStorage.getItem("mainSettings");
+  //return data == null
+  //  ? { City: "Riyadh", CityAr: "الرياض", Lang: "ar" }
+    //  : JSON.parse(data);
+  return JSON.parse(data);
 }
 export function saveMainSettingsDataToClient(data) {
   localStorage.setItem("mainSettings", JSON.stringify(data));
-  Swal.fire({
-    icon: "success",
-    title: "تم الحفظ",
-    timer: 1500,
-  });
   Prayers();
 }

@@ -1,4 +1,5 @@
 ﻿using AzanSystemNew.Web.Models;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace AzanSystemNew.Web.BLL
@@ -7,11 +8,11 @@ namespace AzanSystemNew.Web.BLL
     {
         private readonly IWebHostEnvironment _webHostEnvironment = webHostEnvironment;
 
-        private readonly string _fileName = "DefaultValues.json";
+        private readonly string _fileName = "index.json";
 
         public object? GetValues()
         {
-            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, _fileName);
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "resources", _fileName);
             if (!File.Exists(filePath))
             {
                 return new { };
@@ -25,15 +26,15 @@ namespace AzanSystemNew.Web.BLL
         {
             try
             {
-                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, _fileName);
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath,"resources", _fileName);
                 if (!File.Exists(filePath))
                 {
                     using (FileStream fs = File.Create(filePath))
                     {
                     }
                 }
-
-                var json = JsonSerializer.Serialize(mdl, new JsonSerializerOptions { WriteIndented = true });
+     
+                var json = JsonSerializer.Serialize(mdl, new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping, WriteIndented = true  });
                 File.WriteAllText(filePath, json);
                 return "تم الحفظ";
             }

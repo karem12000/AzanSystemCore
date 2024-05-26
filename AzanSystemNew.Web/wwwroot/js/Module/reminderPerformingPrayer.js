@@ -1,5 +1,5 @@
 import { handleTitle, playSound } from "../helpers/general.js";
-import { getMainSettingsDataFromClient } from "../helpers/mainSettingsData.js";
+import { getMainSettingsData } from "../helpers/mainSettingsData.js";
 
 export function reminderPerformingPrayer(compareTimeWithPrayer) {
   function generate() {
@@ -32,9 +32,10 @@ export function reminderPerformingPrayer(compareTimeWithPrayer) {
         </div>
       </section>`);
   }
-  function render() {
-    generate();
-    $(".city").text(getMainSettingsDataFromClient().cityAr);
+ async function render() {
+      generate();
+      let mainSettings = await getMainSettingsData();
+      $(".city").text(mainSettings.CityAr);
     $(".prayerName").text(compareTimeWithPrayer.nextPrayer.arName);
 
     playSound("performing");

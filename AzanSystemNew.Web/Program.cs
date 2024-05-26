@@ -6,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options=>{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
 builder.Services.AddScoped<DefaultValuesBll>();
 builder.WebHost.UseElectron(args);
 builder.Services.AddElectron();

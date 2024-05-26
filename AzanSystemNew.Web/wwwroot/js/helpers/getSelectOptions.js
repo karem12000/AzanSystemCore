@@ -1,4 +1,4 @@
-import { getMainSettingsDataFromClient } from "./mainSettingsData.js";
+import { getMainSettingsData } from "./mainSettingsData.js";
 async function getCitiesData() {
   let response = await fetch("resources/ksa-cities.json");
   return await response.json();
@@ -12,9 +12,9 @@ export async function handleCities(
   mainSettingCity = "Riyadh",
   container = "city"
 ) {
-  let mainSettings = getMainSettingsDataFromClient();
-  if (mainSettings != null && mainSettings.city != null) {
-    mainSettingCity = mainSettings.city;
+    let mainSettings = getMainSettingsData();
+  if (mainSettings != null && mainSettings.City != null) {
+    mainSettingCity = mainSettings.City;
   }
 
   let data = await getCitiesData();
@@ -40,9 +40,9 @@ export async function handleLanguages(
   mainSettingLanguage = "ar",
   container = "language"
 ) {
-  let mainSettings = getMainSettingsDataFromClient();
-  if (mainSettings != null && mainSettings.language != null) {
-    mainSettingLanguage = mainSettings.language;
+    let mainSettings = getMainSettingsData();
+  if (mainSettings != null && mainSettings.Lang != null) {
+    mainSettingLanguage = mainSettings.Lang;
   }
 
   let data = await getLanguagesData();

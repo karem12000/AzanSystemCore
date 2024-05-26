@@ -1,5 +1,7 @@
 import { handleTitle } from "../helpers/general.js";
 import { handleAzkarAfterPrayer } from "../helpers/getAzkar.js";
+import { getMainSettingsData } from "../helpers/mainSettingsData.js";
+
 export function AzkarAfterPrayer() {
   function generate() {
     $(".mainContainer")
@@ -19,7 +21,7 @@ export function AzkarAfterPrayer() {
       </section>`);
   }
   function render() {
-    generate();
+      generate();
     handleAzkarAfterPrayer("AzkarAfterPrayerList");
   }
   render();
