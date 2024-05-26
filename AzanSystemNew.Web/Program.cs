@@ -42,14 +42,19 @@ app.MapControllerRoute(
 //    pattern: "api",
 //    defaults: new { controller = "Values", action = "SaveSettings" });
 
-
-//await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions
 //{
-//    Icon = "D:\\MTX-Projects\\AzanSystemCore\\AzanSystemNew.Web\\wwwroot\\img\\favicon.ico",
-//    Width = 1300,
-//    Height = 1200,
-//    AutoHideMenuBar = true
+//    var browserWindow = await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions
+//    {
+//        Icon = "D:\\MTX-Projects\\AzanSystemCore\\AzanSystemNew.Web\\wwwroot\\img\\favicon.ico",
+//        Width = 1300,
+//        Height = 1200,
+//        AutoHideMenuBar = true
 
-//});
+//    });
+
+//    browserWindow.Maximize();
+
+//}
+
 
 app.Run();
