@@ -21,6 +21,7 @@ export function Prayers() {
                 id="city"
                 data-awesome="fa-regular fa-location-dot"
                 data-title="المدينة"
+                data-titleonly="true"
               >
               </div>
               </div>
@@ -52,7 +53,7 @@ export function Prayers() {
   function handle() {
     render();
     handlePrayers();
-    handleCities();
+      handleCities();
     $(".myDate").hijriDate({ showGregDate: true });
     updatedTime("timeContainer", "afContainer");
   }

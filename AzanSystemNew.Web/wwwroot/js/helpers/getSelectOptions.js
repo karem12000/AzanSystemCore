@@ -12,11 +12,10 @@ export async function handleCities(
   mainSettingCity = "Riyadh",
   container = "city"
 ) {
-    let mainSettings = getMainSettingsData();
+    let mainSettings =await  getMainSettingsData();
   if (mainSettings != null && mainSettings.City != null) {
-    mainSettingCity = mainSettings.City;
+      mainSettingCity = mainSettings.City;
   }
-
   let data = await getCitiesData();
   $(`#${container}`).html(`   <select>
         ${
@@ -40,7 +39,7 @@ export async function handleLanguages(
   mainSettingLanguage = "ar",
   container = "language"
 ) {
-    let mainSettings = getMainSettingsData();
+    let mainSettings = await getMainSettingsData();
   if (mainSettings != null && mainSettings.Lang != null) {
     mainSettingLanguage = mainSettings.Lang;
   }

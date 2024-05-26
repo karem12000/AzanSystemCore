@@ -141,11 +141,16 @@ async function executionFunctions(prayersTimes) {
 }
 async function executeOne() {
     let prayersTimes = await getPrayerswithSplitedFormat();
-    if (prayersTimes != undefined) {
-        setInterval(() => executionFunctions(prayersTimes), 1000);
-    } else {
-        CityLanguageScreen();
-    }
+        setInterval(async () => {
+            let prayersTimes = await getPrayerswithSplitedFormat();
+            if (prayersTimes != undefined) {
+
+                executionFunctions(prayersTimes)
+            } else { 
+                CityLanguageScreen();
+            }
+        }, 1000);
+    
 
 }
 executeOne();

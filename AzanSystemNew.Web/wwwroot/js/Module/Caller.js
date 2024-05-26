@@ -32,6 +32,7 @@ export function Caller(compareTimeWithPrayer) {
                 id="city"
                 data-awesome="fa-regular fa-location-dot"
                 data-title="المدينة"
+                data-titleonly="true"
               >
               </div>
             </div>

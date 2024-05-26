@@ -1,10 +1,11 @@
-export function Select(id, awesome, title) {
+export function Select(id, awesome, title,titleOnly=false) {
   let selected = $(`#${id} option:selected`);
 
   function generate() {
     emptyContainer();
-    generateLabel();
-    generateList();
+      generateLabel();
+      if (titleOnly == false) { generateList(); }
+   
     $(`#${id} select`).remove();
   }
   function emptyContainer() {
@@ -18,8 +19,7 @@ export function Select(id, awesome, title) {
       ><span class="mainText"
         ><span class="ml-1">${title} :</span><span class="b">${selected.text()}</span></span
       ></span
-    ><i class="fa-solid fa-chevron-down updown"></i
-  ></label>`);
+    >${titleOnly == false ? "<i class='fa-solid fa-chevron-down updown'></i>" : ""}</label>`);
   }
   function generateList() {
     let html = "<ul style='display:none'>";
@@ -37,8 +37,10 @@ export function Select(id, awesome, title) {
       .toggleClass("fa-chevron-down")
       .toggleClass("fa-chevron-up");
   }
-  $(`#${id}`).on("click", `label`, function () {
-    slideToggle();
+    $(`#${id}`).on("click", `label`, function () {
+        if (titleOnly == false) { slideToggle(); }
+
+    
   });
   $(`#${id}`).on("click", "ul li", function () {
     $(this).parent("ul").siblings("label").data("id", $(this).data("id"));
@@ -67,10 +69,10 @@ export function getSelectText(id) {
   return $("#" + id + " label .mainText span.b").text();
 }
 export function generateOne(id) {
-  Select(id, $(`#${id}`).data("awesome"), $(`#${id}`).data("title"));
+    Select(id, $(`#${id}`).data("awesome"), $(`#${id}`).data("title"), $(`#${id}`).data("titleonly")?? false);
 }
 export function generateSelect() {
   $.each($(".customSelect"), function () {
-    Select($(this).attr("id"), $(this).data("awesome"), $(this).data("title"));
+      Select($(this).attr("id"), $(this).data("awesome"), $(this).data("title"), $(this).data("titleonly") ?? false);
   });
 }
