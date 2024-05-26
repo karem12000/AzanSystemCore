@@ -19,6 +19,7 @@ namespace AzanSystemNew.Web.BLL
             }
 
             var json = File.ReadAllText(filePath);
+            if (string.IsNullOrEmpty(json)) json = "{}";
             return JsonSerializer.Deserialize<DefaultValues>(json);
         }
 
@@ -26,15 +27,15 @@ namespace AzanSystemNew.Web.BLL
         {
             try
             {
-                var filePath = Path.Combine(_webHostEnvironment.WebRootPath,"resources", _fileName);
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "resources", _fileName);
                 if (!File.Exists(filePath))
                 {
                     using (FileStream fs = File.Create(filePath))
                     {
                     }
                 }
-     
-                var json = JsonSerializer.Serialize(mdl, new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping, WriteIndented = true  });
+
+                var json = JsonSerializer.Serialize(mdl, new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping, WriteIndented = true });
                 File.WriteAllText(filePath, json);
                 return "تم الحفظ";
             }
