@@ -50,12 +50,14 @@ export function Prayers() {
       </section>`);
   }
 
-  function handle() {
-    render();
-    handlePrayers();
-      handleCities();
-    $(".myDate").hijriDate({ showGregDate: true });
-    updatedTime("timeContainer", "afContainer");
+    function handle() {
+        if (document.getElementById("PrayersScreen") == null){
+            render();
+            handlePrayers();
+            handleCities();
+            $(".myDate").hijriDate({ showGregDate: true });
+            updatedTime("timeContainer", "afContainer");
+        }
   }
   handle();
 }

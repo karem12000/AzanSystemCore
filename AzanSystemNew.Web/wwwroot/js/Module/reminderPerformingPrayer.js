@@ -32,13 +32,15 @@ export function reminderPerformingPrayer(compareTimeWithPrayer) {
         </div>
       </section>`);
   }
- async function render() {
-      generate();
-      let mainSettings = await getMainSettingsData();
-      $(".city").text(mainSettings.CityAr);
-    $(".prayerName").text(compareTimeWithPrayer.nextPrayer.arName);
+    async function render() {
+        if (document.getElementById("reminderPerformingPrayer") == null) {
+            generate();
+            let mainSettings = await getMainSettingsData();
+            $(".city").text(mainSettings.CityAr);
+            $(".prayerName").text(compareTimeWithPrayer.nextPrayer.arName);
 
-    playSound("performing");
+            playSound("performing");
+        }
   }
   render();
 }

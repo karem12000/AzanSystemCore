@@ -20,9 +20,11 @@ export function AzkarAfterPrayer() {
         </div>
       </section>`);
   }
-  function render() {
-      generate();
-    handleAzkarAfterPrayer("AzkarAfterPrayerList");
+    function render() {
+        if (document.getElementById("AzkarAfterPrayer") == null) {
+            generate();
+            handleAzkarAfterPrayer("AzkarAfterPrayerList");
+        }
   }
   render();
 }

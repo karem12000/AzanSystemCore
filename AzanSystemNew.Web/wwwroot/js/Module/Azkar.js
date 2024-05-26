@@ -11,7 +11,9 @@ export function Azkar() {
           </p>
         </div>
       </div>`);
-  }
-  render();
-  getRandomOfAzkarCaller("azkarAfterCaller");
+    }
+    if (document.getElementById("Azkar") == null) {
+        render();
+        getRandomOfAzkarCaller("azkarAfterCaller");
+    }
 }

@@ -48,15 +48,17 @@ export function Caller(compareTimeWithPrayer) {
       </section>`);
   }
 
-  function handle() {
-    render();
-    $(".prayerName").text(compareTimeWithPrayer.nextPrayer.arName);
-    playSound("prayer");
+    function handle() {
+        if (document.getElementById("Caller") == null) {
+            render();
+            $(".prayerName").text(compareTimeWithPrayer.nextPrayer.arName);
+            playSound("prayer");
 
-    $(".myDate").hijriDate({ showGregDate: true });
-    updatedTime("timeContainer", "afContainer");
-    handlePrayers();
-    handleCities();
+            $(".myDate").hijriDate({ showGregDate: true });
+            updatedTime("timeContainer", "afContainer");
+            handlePrayers();
+            handleCities();
+        }
   }
   handle();
 }

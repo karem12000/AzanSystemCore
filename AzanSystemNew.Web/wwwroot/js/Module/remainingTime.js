@@ -62,26 +62,28 @@ export function remainingTime(compareTimeWithPrayer) {
       </section>
         `);
   }
-  render();
-  playSound("notification");
-  $(".myDate").hijriDate({ showGregDate: true });
-  updatedTime("timeContainer", "afContainer");
-    $(".city").text(getMainSettingsData().CityAr);
-  if (compareTimeWithPrayer != undefined || compareTimeWithPrayer != null) {
-    if (compareTimeWithPrayer.nextPrayer != null) {
-      $(".prayerName").text(compareTimeWithPrayer.nextPrayer.arName);
-      $(".prayerTime").text(
-        `${compareTimeWithPrayer.nextPrayer.hour}:${compareTimeWithPrayer.nextPrayer.minutes}`
-      );
-      $(".prayerAF").text(
-        compareTimeWithPrayer.nextPrayer.af == "AM" ? "صباحاً" : "مساءاً"
-      );
-      Counter(
-        compareTimeWithPrayer.timeDifference,
-        "secondsContainer",
-        "minutesContainer",
-        "hoursContainer"
-      );
+    if (document.getElementById("remainingTime") == null) {
+        render();
+        playSound("notification");
+        $(".myDate").hijriDate({ showGregDate: true });
+        updatedTime("timeContainer", "afContainer");
+        $(".city").text(getMainSettingsData().CityAr);
+        if (compareTimeWithPrayer != undefined || compareTimeWithPrayer != null) {
+            if (compareTimeWithPrayer.nextPrayer != null) {
+                $(".prayerName").text(compareTimeWithPrayer.nextPrayer.arName);
+                $(".prayerTime").text(
+                    `${compareTimeWithPrayer.nextPrayer.hour}:${compareTimeWithPrayer.nextPrayer.minutes}`
+                );
+                $(".prayerAF").text(
+                    compareTimeWithPrayer.nextPrayer.af == "AM" ? "صباحاً" : "مساءاً"
+                );
+                Counter(
+                    compareTimeWithPrayer.timeDifference,
+                    "secondsContainer",
+                    "minutesContainer",
+                    "hoursContainer"
+                );
+            }
+        }
     }
-  }
 }

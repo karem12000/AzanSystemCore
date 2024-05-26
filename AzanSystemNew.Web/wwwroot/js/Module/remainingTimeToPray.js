@@ -21,9 +21,11 @@ export function remainingTimeToPray(timeCompared) {
         </div>
       </section>`);
   }
-  function render() {
-    generate();
-    Timer("timerContainer", timeCompared * 60);
+    function render() {
+        if (document.getElementById("remainingTimeToPray") == null) {
+            generate();
+            Timer("timerContainer", timeCompared * 60);
+        }
   }
   render();
 }
