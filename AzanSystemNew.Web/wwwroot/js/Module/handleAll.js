@@ -1,5 +1,5 @@
 export function handleAll() {
-  console.log("All");
+  //console.log("All");
 }
 function deleteItem(id, el) {
   Swal.fire({

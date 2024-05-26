@@ -1,16 +1,17 @@
-using AzanSystemNew.Web.Models;
+using AzanSystemNew.Web.BLL;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace AzanSystemNew.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DefaultValuesBll _defaultValuesBll;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DefaultValuesBll defaultValuesBll)
         {
             _logger = logger;
+            _defaultValuesBll = defaultValuesBll;
         }
 
         public IActionResult Index()
@@ -18,15 +19,17 @@ namespace AzanSystemNew.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
+
+
     }
 }

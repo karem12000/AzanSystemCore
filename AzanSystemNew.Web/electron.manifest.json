@@ -1,0 +1,38 @@
+{
+  "executable": "AzanSystemNew.Web",
+  "splashscreen": {
+    "imageFile": "D:\\MTX-Projects\\AzanSystemCore\\AzanSystemNew.Web\\wwwroot\\img\\favicon.ico"
+  },
+  "name": "AzanSystemNew.Web",
+  "author": "MTX",
+  "singleInstance": false,
+  "environment": "Production",
+  "build": {
+    "appId": "com.AzanSystemNew.Web.app",
+    "productName": "AzanApp",
+    "copyright": "Copyright © 2020",
+    "buildVersion": "1.0.0",
+    "compression": "maximum",
+    "win": {
+      "icon": "D:\\MTX-Projects\\AzanSystemCore\\AzanSystemNew.Web\\wwwroot\\img\\favicon.ico"
+    },
+    "directories": {
+      "output": "../../../bin/Desktop"
+    },
+    "extraResources": [
+      {
+        "from": "./bin",
+        "to": "bin",
+        "filter": [ "**/*" ]
+      }
+    ],
+    "files": [
+      {
+        "from": "./ElectronHostHook/node_modules",
+        "to": "ElectronHostHook/node_modules",
+        "filter": [ "**/*" ]
+      },
+      "**/*"
+    ]
+  }
+}
