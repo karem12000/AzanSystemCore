@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddControllers().AddJsonOptions(options=>{
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 builder.Services.AddScoped<DefaultValuesBll>();
@@ -45,8 +46,8 @@ app.MapControllerRoute(
 //await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions
 //{
 //    Icon = "D:\\MTX-Projects\\AzanSystemCore\\AzanSystemNew.Web\\wwwroot\\img\\favicon.ico",
-//    //Width = 1300,
-//    //Height = 1200
+//    Width = 1300,
+//    Height = 1200,
 //    AutoHideMenuBar = true
 
 //});

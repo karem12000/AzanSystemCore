@@ -3,11 +3,12 @@ export async function getMainSettingsData() {
     if (response != null) { return response; } else {
         let response = await fetch("/Api/Values/GetSettings");
         let jsonRes = await response.json();
-        if (Object.keys(jsonRes).length) {
+        if (Object.keys(jsonRes).length && jsonRes.City != undefined && jsonRes.City != null) {
             saveMainSettingsDataToClient(jsonRes);
         }
         return jsonRes;
     }
+
 }
 export async function saveMainSettingsData(data) {
     try {

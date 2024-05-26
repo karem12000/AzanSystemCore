@@ -21,7 +21,7 @@ async function getPrayersTimesFromResources(city) {
 async function handleGetPrayersTimesFrom() {
     let mainSettings = await getMainSettingsData();
     var city = mainSettings.City;
-    if (city != undefined) {
+    if (city != undefined && city != null) {
         let dateNow = getDateNow();
         let oldPrayers = JSON.parse(localStorage.getItem("Prayers"));
         if (
@@ -202,8 +202,8 @@ export function handlePrayerContainer(time, name, iconName, active = false) {
  </div>`;
 }
 export async function handlePrayers(className = "prayers", active = null) {
-  let prayers = await getPrayersTimes();
-
+    let prayers = await getPrayersTimes();
+    if (prayers == undefined) return undefined;
   $(".prayers").html(`  
       ${handlePrayerContainer(
         prayers.Fajr,

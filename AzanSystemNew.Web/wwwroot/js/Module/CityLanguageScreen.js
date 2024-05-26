@@ -41,9 +41,10 @@ export function CityLanguageScreen() {
 
     async function handle() {
         let mainSettings = await getMainSettingsData();
-        if (Object.keys(mainSettings).length) {
+        if (Object.keys(mainSettings).length && mainSettings.City != null && mainSettings.City != undefined) {
             Prayers();
-        }else {
+        } else {
+            console.log("jj")
             render();
             handleCities();
             handleLanguages();
