@@ -25,28 +25,9 @@ export async function saveMainSettingsData(data) {
             body: JSON.stringify(data),
         });
 
-        const result = await response;
-        if (result.status == 200) {
-            Swal.fire({
-                icon: "success",
-                title: "تم الحفظ",
-                timer: 1500,
-            });
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "خطأ",
-                timer: 1500,
-            });
-        }
+      
   } catch (error) {
-      console.log(error)
-    Swal.fire({
-      icon: "error",
-      title: "خطأ",
-      text: error,
-      timer: 1500,
-    });
+     
   }
 }
 export function getMainSettingsDataFromClient() {

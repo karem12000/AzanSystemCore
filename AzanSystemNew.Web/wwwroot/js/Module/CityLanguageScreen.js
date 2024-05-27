@@ -40,6 +40,7 @@ export function CityLanguageScreen() {
   }
 
     async function handle() {
+
         let mainSettings = await getMainSettingsData();
         if (Object.keys(mainSettings).length && mainSettings.City != null && mainSettings.City != undefined) {
             Prayers();
