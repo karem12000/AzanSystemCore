@@ -1,7 +1,7 @@
 {
   "executable": "AzanSystemNew.Web",
   "splashscreen": {
-    "imageFile": "D:\\MTX-Projects\\AzanSystemCore\\AzanSystemNew.Web\\wwwroot\\img\\favicon.ico"
+    "imageFile": "/wwwroot/img/favicon.ico"
   },
   "name": "AzanSystemNew.Web",
   "author": "MTX",
@@ -14,7 +14,7 @@
     "buildVersion": "1.0.0",
     "compression": "maximum",
     "win": {
-      "icon": "D:\\MTX-Projects\\AzanSystemCore\\AzanSystemNew.Web\\wwwroot\\img\\favicon.ico"
+      "icon": "/wwwroot/img/favicon.ico"
     },
     "directories": {
       "output": "../../../bin/Desktop"
