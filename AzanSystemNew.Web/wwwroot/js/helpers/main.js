@@ -1,5 +1,6 @@
 import { getPrayerswithSplitedFormat } from "./getPrayersTimes.js";
 import { compareTimeNowWithPrayers } from "./general.js";
+import { Prayers } from "../Module/Prayers.js";
 async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -40,7 +41,7 @@ async function updatedComparePrayersCallerTime(prayersTimes) {
       await sleep(45 * 60 * 1000);
       delayedExecutionRemaingTimeForCaller = false;
     } else {
-      Caller(compareTimeWithPrayer);
+        Caller(compareTimeWithPrayer);
       delayedExecutionRemaingTimeForCaller = true;
     }
   }
@@ -131,21 +132,34 @@ async function updatedCompareAzkarPerformingPrayersTime(prayersTimes) {
     }
   }
 }
+let delayedExecutionPrayersSection = false;
+
+async function updatedComparePrayersSection(prayersTimes) {
+    let compareWith = (timeDifference) =>
+        timeDifference > 15 && timeDifference <= -35;
+    let compareTimeWithPrayer = await compareTimeNowWithPrayers(
+        compareWith,
+        prayersTimes
+    );
+    return compareTimeWithPrayer.nextPrayer;
+}
 async function executionFunctions(prayersTimes) {
   updatedComparePrayersTime(prayersTimes);
   updatedComparePrayersCallerTime(prayersTimes);
   updatedCompareAzkarCallerTime(prayersTimes);
   updatedComparePerformingPrayersTime(prayersTimes);
   updatedCompareReminderPerformingPrayersTime(prayersTimes);
-  updatedCompareAzkarPerformingPrayersTime(prayersTimes);
+    updatedCompareAzkarPerformingPrayersTime(prayersTimes);
 }
 async function executeOne() {
-    let prayersTimes = await getPrayerswithSplitedFormat();
         setInterval(async () => {
             let prayersTimes = await getPrayerswithSplitedFormat();
             if (prayersTimes != undefined) {
-
-                executionFunctions(prayersTimes)
+                if (await updatedComparePrayersSection() != null) {
+                    executionFunctions(prayersTimes)
+                } else {
+                    Prayers();
+                }
             } else { 
                 CityLanguageScreen();
             }

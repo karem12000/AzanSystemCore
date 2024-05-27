@@ -57,7 +57,6 @@ export function CityLanguageScreen() {
     if (cityId && languageId) {
         let obj = { City: cityId, CityAr: cityName, Lang: languageId };
         saveMainSettingsData(obj);
-        saveMainSettingsDataToClient(obj);
     }
   });
 }

@@ -51,7 +51,7 @@ export function Prayers() {
   }
 
     function handle() {
-        if (document.getElementById("PrayersScreen") == null){
+        if (document.getElementById("PrayersScreen") == null) {
             render();
             handlePrayers();
             handleCities();
